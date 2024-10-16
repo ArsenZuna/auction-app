@@ -46,7 +46,7 @@ it pays out the proper amount to the auction poster.
 
 - **Browse Auctions:** Users can view all available auctions on the homepage.
 - **Place a Bid:** Users can place a bid by clicking on an auction and submitting a bid amount.
-- **Manage Auctions:** Admins can access the admin panel to add new auction items, set auction rules, and monitor active bids.
+- **Manage Auctions:** Users can add new auction items, monitor active bids and delete auctions they have put out.
 
 
 ## Contributing
