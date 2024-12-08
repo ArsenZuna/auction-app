@@ -2,8 +2,8 @@ import React from 'react';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Auth from "../pages/Auth.jsx";
 import Homepage from "../pages/Homepage.jsx";
-import Auction from "../components/Auction.jsx";
-import NewAuction from "../components/NewAuction.jsx";
+import AuctionPage from "../pages/AuctionPage.jsx";
+import NewAuctionPage from "../pages/NewAuctionPage.jsx";
 
 const Routes = () => {
 	const router = createBrowserRouter([
@@ -19,12 +19,12 @@ const Routes = () => {
 		},
 		{
 			path: '/auction/information',
-			element: <Auction />,
+			element: <AuctionPage />,
 			errorElement: <h1>404 NOT FOUND</h1>
 		},
 		{
 			path: '/auction/new',
-			element: <NewAuction />,
+			element: <NewAuctionPage />,
 			errorElement: <h1>404 NOT FOUND</h1>
 		}
 	]);

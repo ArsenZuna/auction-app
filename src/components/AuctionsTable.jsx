@@ -4,7 +4,7 @@ import {collection, getDocs, doc, getDoc, deleteDoc} from 'firebase/firestore';
 import {UserContext} from '../utils/UserContext.jsx';
 
 const AuctionsTable = ({onAuctionClick}) => {
-	const {user, setUser} = useContext(UserContext);
+	const {user} = useContext(UserContext);
 	const [auctions, setAuctions] = useState([]);
 
 	useEffect(() => {
