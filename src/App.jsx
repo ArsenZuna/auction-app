@@ -3,7 +3,7 @@ import Routes from "./routes/Routes.jsx";
 
 const App = () => {
 	return (
-		<div className='font-sans'>
+		<div>
 			<Routes/>
 		</div>
 	);
