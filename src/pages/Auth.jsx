@@ -21,28 +21,32 @@ const Auth = () => {
 					className={`container ${isRightPanelActive ? "right-panel-active" : ""}`}
 				>
 					<div className="form-container register-container">
-						<motion.form
+						<motion.div
 							variants={fadeIn('left')}
 							initial='hidden'
 							whileInView={'show'}
-							viewport={{once: false, amount: 0.3}}>
+							viewport={{once: false, amount: 0.3}}
+							className="forms"
+						>
 							<h1 className="text-3xl font-bold font-mono text-center mb-4">Register</h1>
-							<div className="flex justify-center">
+							<div className="flex justify-center p-4">
 								<Registration/>
 							</div>
-						</motion.form>
+						</motion.div>
 					</div>
 					<div className="form-container login-container">
-						<motion.form
+						<motion.div
 							variants={fadeIn('right')}
 							initial='hidden'
 							whileInView={'show'}
-							viewport={{once: false, amount: 0.3}}>
+							viewport={{once: false, amount: 0.3}}
+							className="forms"
+						>
 							<h1 className="text-3xl font-bold font-mono text-center mb-4">Login</h1>
 							<div className="flex justify-center">
-								<Login/>
+								<Login />
 							</div>
-						</motion.form>
+						</motion.div>
 					</div>
 					<div className="overlay-container">
 						<div className="overlay">

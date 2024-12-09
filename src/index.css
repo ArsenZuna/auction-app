@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.auth form {
+.auth .forms {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
