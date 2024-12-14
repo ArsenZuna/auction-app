@@ -1,11 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {db} from '../utils/firebaseConfig.jsx';
-import {collection, getDocs, doc, getDoc, deleteDoc} from 'firebase/firestore';
-import {UserContext} from '../utils/UserContext.jsx';
+import React, { useContext, useEffect, useState } from 'react';
+import { db } from '../utils/firebaseConfig.jsx';
+import { collection, getDocs, doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { UserContext } from '../utils/UserContext.jsx';
 
-const AuctionsTable = ({onAuctionClick}) => {
-	const {user} = useContext(UserContext);
+const AuctionsTable = ({ onAuctionClick }) => {
+	const { user } = useContext(UserContext);
 	const [auctions, setAuctions] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchAuctions = async () => {
@@ -15,11 +16,15 @@ const AuctionsTable = ({onAuctionClick}) => {
 				const auctionList = await Promise.all(
 					auctionSnapshot.docs.map(async (auctionDoc) => {
 						const auctionData = auctionDoc.data();
-						const endDate = auctionData.end_date?.toDate ? auctionData.end_date.toDate() : auctionData.end_date;
+						const endDate = auctionData.end_date?.toDate
+							? auctionData.end_date.toDate()
+							: auctionData.end_date;
 						const sellerRef = doc(db, 'users', auctionData.seller_id);
 						const sellerDoc = await getDoc(sellerRef);
 
-						const sellerName = sellerDoc.exists() ? sellerDoc.data().first_name : 'Unknown Seller';
+						const sellerName = sellerDoc.exists()
+							? sellerDoc.data().first_name
+							: 'Unknown Seller';
 						return {
 							id: auctionDoc.id,
 							...auctionData,
@@ -34,6 +39,8 @@ const AuctionsTable = ({onAuctionClick}) => {
 				setAuctions(sortedAuctions);
 			} catch (error) {
 				console.error('Error fetching auctions:', error);
+			} finally {
+				setLoading(false);
 			}
 		};
 		fetchAuctions();
@@ -56,49 +63,67 @@ const AuctionsTable = ({onAuctionClick}) => {
 	};
 
 	return (
-		<div className='flex flex-1 justify-center items-center align-middle p-5 md:p-10'>
-			<div className='overflow-x-auto sm:w-full xl:w-[850px]'>
-				<table className='min-w-full divide-y divide-gray-200 dark:divide-neutral-700 bg-white'>
-					<thead>
-					<tr>
-						<th scope='col' className='px-5 py-3 text-start text-sm font-medium text-gray-500 uppercase dark:text-neutral-500'>Product</th>
-						<th scope='col' className='px-5 py-3 text-start text-sm font-medium text-gray-500 uppercase dark:text-neutral-500'>Seller</th>
-						<th scope='col' className='px-5 py-3 text-start text-sm font-medium text-gray-500 uppercase dark:text-neutral-500'>Top Bid</th>
-						<th scope='col' className='px-5 py-3 text-start text-sm font-medium text-gray-500 uppercase dark:text-neutral-500'>Time Remaining</th>
-						<th scope='col' className='px-5 py-3 text-end text-sm font-medium text-gray-500 uppercase dark:text-neutral-500'></th>
-					</tr>
-					</thead>
-					<tbody className='divide-y divide-gray-200 dark:divide-neutral-700'>
-					{auctions.map((auction) => (
-						<tr key={auction.id} className='hover:bg-cyan-300 transition duration-300 text-md'>
-							<td className='px-5 py-4 whitespace-nowrap text-black hover:font-semibold'>
-								<button onClick={() => onAuctionClick(auction)}>{auction.product_name}</button>
-							</td>
-							<td className='px-5 py-4 whitespace-nowrap text-black hover:font-semibold'>
-								<button onClick={() => onAuctionClick(auction)}>{auction.seller_name}</button>
-							</td>
-							<td className='px-5 py-4 whitespace-nowrap text-black hover:font-semibold'>
-								<button onClick={() => onAuctionClick(auction)}>${auction.current_bid}</button>
-							</td>
-							<td className='px-5 py-4 whitespace-nowrap text-black hover:font-semibold'>
-								<button onClick={() => onAuctionClick(auction)}>{calculateTimeRemaining(auction.end_date)}</button>
-							</td>
-							<td className='px-5 py-4 whitespace-nowrap text-end font-medium'>
-								{user && auction.seller_id === user.id && (
-									<button
-										type='button'
-										className='font-semibold text-[16px] inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400'
-										onClick={() => handleDelete(auction.id)}
-									>
-										Delete
-									</button>
-								)}
-							</td>
+		<div className="max-w-full mx-auto px-4">
+			{loading ? (
+				<div className="w-10 h-10 border-4 border-t-red-800 border-gray-300 rounded-full animate-spin mx-auto mt-16"></div>
+			) : (
+				<div>
+					<table className="table-auto w-full border-collapse">
+						<thead className="text-xs uppercase text-black bg-gray-50">
+						<tr>
+							<th scope="col" className="px-5 py-2 whitespace-nowrap">
+								<span className="text-center">Product</span>
+							</th>
+							<th scope="col" className="px-5 py-2 whitespace-nowrap">
+								<span className="text-center">Seller</span>
+							</th>
+							<th scope="col" className="px-5 py-2 whitespace-nowrap">
+								<span className="text-left">Top Bid</span>
+							</th>
+							<th scope="col" className="px-5 py-2 whitespace-nowrap">
+								<span className="text-left">Time Remaining</span>
+							</th>
+							<th scope="col" className="px-5 py-2 whitespace-nowrap"></th>
 						</tr>
-					))}
-					</tbody>
-				</table>
-			</div>
+						</thead>
+						<tbody className="text-sm divide-y divide-gray-100">
+						{auctions.map((auction) => (
+							<tr
+								key={auction.id}
+								className="hover:bg-red-800 hover:text-white transition duration-200 text-md cursor-pointer"
+							>
+								<td className="px-5 py-2 whitespace-nowrap"
+										onClick={() => onAuctionClick(auction)}>
+									<div className="flex items-center">
+										<div className="font-semibold">{auction.product_name}</div>
+									</div>
+								</td>
+								<td className="px-5 py-2 whitespace-nowrap">
+									<div className="text-left">{auction.seller_name}</div>
+								</td>
+								<td className="px-5 py-2 whitespace-nowrap">
+									<div className="text-left">${auction.current_bid}</div>
+								</td>
+								<td className="px-5 py-2 whitespace-nowrap">
+									<div className="text-left">{calculateTimeRemaining(auction.end_date)}</div>
+								</td>
+								<td className="px-5 whitespace-nowrap text-end">
+									{user && auction.seller_id === user.id && (
+										<button
+											type="button"
+											className="font-semibold inline-flex items-center text-sm rounded-lg border border-transparent focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+											onClick={() => handleDelete(auction.id)}
+										>
+											Delete
+										</button>
+									)}
+								</td>
+							</tr>
+						))}
+						</tbody>
+					</table>
+				</div>
+			)}
 		</div>
 	);
 };

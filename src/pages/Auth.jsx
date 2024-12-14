@@ -28,7 +28,7 @@ const Auth = () => {
 							viewport={{once: false, amount: 0.3}}
 							className="forms"
 						>
-							<h1 className="text-3xl font-bold font-mono text-center mb-4">Register</h1>
+							<h1 className="text-3xl font-bold text-center mb-1 lg:mb-4">Register</h1>
 							<div className="flex justify-center p-4">
 								<Registration/>
 							</div>
@@ -42,7 +42,7 @@ const Auth = () => {
 							viewport={{once: false, amount: 0.3}}
 							className="forms"
 						>
-							<h1 className="text-3xl font-bold font-mono text-center mb-4">Login</h1>
+							<h1 className="text-3xl font-bold text-center mb-4">Login</h1>
 							<div className="flex justify-center">
 								<Login />
 							</div>
@@ -57,7 +57,7 @@ const Auth = () => {
 								</p>
 								<div className="pt-3">
 									<button className='text-md px-6 py-2 bg-transparent font-bold text-white border border-white rounded-xl
-								hover:bg-white hover:text-red-800 duration-300 transform active:scale-95 focus:outline-none'
+								hover:bg-white hover:text-red-800 duration-200 transform active:scale-95 focus:outline-none'
 													onClick={handleSignInClick}>
 										Login
 									</button>
@@ -66,11 +66,11 @@ const Auth = () => {
 							<div className="overlay-panel overlay-right">
 								<h1 className="text-2xl font-semibold p-2">Hello, Friend!</h1>
 								<p className="text-lg">
-									Enter your account details and find what is going on.
+									Enter your account details and find out what is going on.
 								</p>
 								<div className="p-4">
 									<button className='text-md px-6 py-2 bg-transparent font-bold text-white border border-white rounded-xl
-								hover:bg-white hover:text-red-800 duration-300 transform active:scale-95 focus:outline-none'
+								hover:bg-white hover:text-red-800 duration-200 transform active:scale-95 focus:outline-none'
 													onClick={handleSignUpClick}>
 										Register
 									</button>

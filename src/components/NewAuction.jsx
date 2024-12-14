@@ -70,25 +70,27 @@ const NewAuction = () => {
 				initial='hidden'
 				whileInView={'show'}
 				viewport={{once: false, amount: 0.4}}
-				className='container mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10'>
-				<div className='flex flex-col md:flex-row justify-between items-center mb-6'>
-					<h1 className='text-4xl text-black font-semibold underline text-center md:text-left'>
-						New Auction
-					</h1>
-					<div className='flex flex-wrap justify-center md:justify-end mt-4 md:mt-0'>
+				className='container mx-auto bg-white rounded-2xl p-6 md:p-10'>
+				<div className='flex flex-col md:flex-row justify-between items-center mb-8'>
+					<div className='flex flex-wrap justify-center md:justify-end mb-4 lg:mb-0'>
 						<button
-							className='mx-2 my-2 font-semibold bg-black text-white px-4 py-2 rounded hover:bg-slate-300 hover:text-black transition duration-300'
+							className='mx-3 text-sm px-2 py-2 bg-transparent font-bold text-red-800 border border-red-800 rounded-xl
+								hover:bg-red-800 hover:text-white duration-200 transform active:scale-95 focus:outline-none'
 							onClick={returnToHomepage}
 						>
 							Homepage
 						</button>
 						<button
-							className='mx-2 my-2 font-semibold bg-black text-white px-4 py-2 rounded hover:bg-slate-300 hover:text-black transition duration-300'
+							className='mx-3 text-sm px-2 py-2 bg-transparent font-bold text-red-800 border border-red-800 rounded-xl
+								hover:bg-red-800 hover:text-white duration-200 transform active:scale-95 focus:outline-none'
 							onClick={handleLogout}
 						>
 							Logout
 						</button>
 					</div>
+					<h1 className='text-3xl md:text-4xl text-black font-semibold text-center md:text-left'>
+						New Auction
+					</h1>
 				</div>
 				<form className='pt-6' onSubmit={handleSubmit}>
 					<div className='flex flex-col md:flex-row justify-center w-full'>
@@ -96,7 +98,7 @@ const NewAuction = () => {
 							<div>
 								<label className='block mb-1'>Product Name</label>
 								<input
-									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-300'
+									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-200'
 									type='text'
 									name='product_name'
 									value={newAuction.product_name}
@@ -108,7 +110,7 @@ const NewAuction = () => {
 							<div>
 								<label className='block mb-1'>Starting Bid</label>
 								<input
-									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-300'
+									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-200'
 									type='number'
 									name='starting_bid'
 									value={newAuction.starting_bid}
@@ -120,7 +122,7 @@ const NewAuction = () => {
 							<div>
 								<label className='block mb-1'>Description</label>
 								<textarea
-									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-300'
+									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-200'
 									rows='5'
 									name='description'
 									value={newAuction.description}
@@ -132,7 +134,7 @@ const NewAuction = () => {
 							<div className='md:pt-10'>
 								<label className='block mb-1'>End Date</label>
 								<input
-									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-300'
+									className='font-semibold w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-3 focus:outline-none focus:bg-white focus:border-black transition duration-200'
 									type='date'
 									name='end_date'
 									value={newAuction.end_date}
@@ -143,7 +145,8 @@ const NewAuction = () => {
 						</div>
 					</div>
 					<div className='flex justify-center pt-10'>
-						<button className='font-semibold bg-black text-white px-5 py-2 mx-3 rounded hover:bg-cyan-300 hover:text-black transition duration-300' type='submit'>
+						<button className='text-md px-4 py-4 bg-transparent font-bold text-red-800 border border-red-800 rounded-xl
+								hover:bg-red-800 hover:text-white duration-200 transform active:scale-95 focus:outline-none' type='submit'>
 							Create Auction
 						</button>
 					</div>
